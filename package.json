@@ -1,0 +1,17 @@
+{
+  "name": "edjoin-aggregator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Radius-based job map for edjoin.org California school jobs",
+  "scripts": {
+    "scrape": "node scripts/scrape.mjs",
+    "details": "node --max-old-space-size=4096 scripts/scrape-details.mjs",
+    "geocode": "node scripts/geocode.mjs",
+    "geocode-exact": "node --max-old-space-size=4096 scripts/geocode-exact.mjs",
+    "build-data": "node scripts/scrape.mjs && node scripts/geocode.mjs",
+    "build-exact": "node scripts/scrape.mjs && node scripts/geocode.mjs && npm run details && npm run geocode-exact",
+    "refresh": "npm run build-exact",
+    "serve": "node scripts/serve.mjs"
+  }
+}

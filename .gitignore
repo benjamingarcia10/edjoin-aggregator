@@ -1,0 +1,9 @@
+node_modules/
+.playwright-mcp/
+.DS_Store
+
+# Data files ARE committed (written one-record-per-line) so refreshes produce
+# readable per-posting git diffs. Regenerate any time with `npm run build-exact`.
+
+# Working screenshots (the README hero lives in docs/images/ instead).
+edjoin-*.png
