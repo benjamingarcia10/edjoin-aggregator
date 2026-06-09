@@ -21,12 +21,12 @@ scraped from its detail page and geocoded locally.
 ### Pipeline (each step writes a file the next one reads)
 
 ```
-scripts/scrape.mjs         →  data/jobs.json                       (the list of postings)
-scripts/geocode.mjs         →  data/geocache.json                  (city → lat/long cache)
-scripts/scrape-details.mjs →  data/details.json                    (per-posting detail data)
-scripts/geocode-exact.mjs  →  data/geocache-exact.json             (address/ZIP/county cache)
-                            →  data/jobs.geo.json                   (the site's input)
-public/  +  scripts/serve.mjs                                       (static site, no keys)
+scripts/scrape.mjs          →  data/jobs.json            (the list of postings)
+scripts/geocode.mjs         →  data/geocache.json        (city → lat/long cache)
+scripts/scrape-details.mjs  →  data/details.json         (per-posting detail data)
+scripts/geocode-exact.mjs   →  data/geocache-exact.json  (address/ZIP/county cache)
+                            →  data/jobs.geo.json        (the site's input)
+public/  +  scripts/serve.mjs                            (the static site, no keys)
 ```
 
 All four scripts above (plus `scripts/serve.mjs`, the local static server) share
@@ -43,8 +43,8 @@ build inputs and incremental caches (so refreshes only fetch what's new).
 |------|-----------|------------|
 | `data/jobs.json` | `scrape.mjs` | Every current CA posting from the `LoadJobs` list API — title, district, city, county, dates, URL. No coordinates; `zip` is null. |
 | `data/details.json` | `scrape-details.mjs` | Per-posting detail-page data keyed by posting ID: exact street address + ZIP, salary, employment type, work year, openings, contact. Versioned (`_v`) so a schema change forces a re-scrape. |
-| `data/geocache.json` | `geocode.mjs` | `"City, State"` → lat/long, via Nominatim. The **city/county fallback tier** cache. |
-| `data/geocache-exact.json` | `geocode-exact.mjs` | Geocode cache keyed by normalized street address, `zip:NNNNN`, and `county:Name` → lat/long + precision. Lets reruns skip already-geocoded locations. |
+| `data/geocache.json` | `geocode.mjs` | `"City, State"` → lat/long, via Nominatim. The **city** fallback-tier cache. |
+| `data/geocache-exact.json` | `geocode-exact.mjs` | Geocode cache keyed by normalized street address, `zip:NNNNN`, and `county:Name` → lat/long + precision (the address, ZIP, and county tiers). Lets reruns skip already-geocoded locations. |
 | `data/jobs.geo.json` | `geocode-exact.mjs` | **The only file the site loads.** Each posting merged with its best coordinates (+ precision tag) and detail fields. |
 
 ### Why scrape detail pages
