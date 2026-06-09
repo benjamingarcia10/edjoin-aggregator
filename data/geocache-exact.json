@@ -1839,5 +1839,7 @@
 "county:Wayne":{"lat":33.6742048,"lon":-117.8680243,"precision":"county"},
 "county:Maricopa":{"lat":35.0644295,"lon":-119.4018918,"precision":"county"},
 "county:Hennepin":null,
-"county:Multnomah":{"lat":34.0697879,"lon":-118.189155,"precision":"county"}
+"county:Multnomah":{"lat":34.0697879,"lon":-118.189155,"precision":"county"},
+"100 north dupont road|wilmington|19807":{"lat":39.752521030182,"lon":-75.588410508298,"precision":"address"},
+"750 college avenue|kentfield|94904":{"lat":37.95298763274,"lon":-122.549073913013,"precision":"address"}
 }
