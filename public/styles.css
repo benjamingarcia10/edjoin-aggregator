@@ -511,7 +511,9 @@ input[type="range"]::-moz-range-thumb {
   }
   .brand__sub { display: none; }
   .masthead__stats { gap: 16px; }
-  .stat:last-child { display: none; }
+  /* on a phone, freshness matters more than the static counts: keep only
+     "last updated" (the last stat) and drop postings/mapped */
+  .masthead__stats .stat:not(:last-child) { display: none; }
 
   /* map: persistent full-screen layer under the sheet */
   .mapwrap {
