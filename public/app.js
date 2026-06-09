@@ -223,10 +223,26 @@ function initMap() {
   });
 
   map.on("click", (e) => {
+    // On mobile with the sheet expanded, the map is just a thin strip peeking
+    // above the sheet — a tap there means "let me see the map", not "move the
+    // center". Collapse the sheet first; only reposition the center once the map
+    // is actually the focus (sheet collapsed). On desktop this guard is inert.
+    if (isMobile() && sheet.expanded) {
+      sheet.collapse();
+      return;
+    }
     state.center = { lat: e.latlng.lat, lon: e.latlng.lng, label: "map point" };
     el("locInput").value = "";
     el("clearLoc").hidden = false;
     recompute({ fit: false });
+  });
+
+  // the map height is viewport-relative (52vh) on mobile, so it changes on
+  // rotation/resize — Leaflet needs to recompute its pixel size or tiles misalign
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => map.invalidateSize(), 200);
   });
 }
 
@@ -399,7 +415,14 @@ function updateMore() {
   }
 }
 
+// True on phones / short landscape, where the rail is a bottom sheet over a
+// full-screen map (kept in sync with the CSS breakpoint).
+const mqMobile = window.matchMedia("(max-width: 720px), (orientation: landscape) and (max-height: 480px)");
+const isMobile = () => mqMobile.matches;
+
 function setupInfiniteScroll() {
+  // The list scrolls inside .results__scroll on both desktop (the rail) and
+  // mobile (the bottom sheet), so that element is always the observer root.
   const root = document.querySelector(".results__scroll");
   const obs = new IntersectionObserver(
     (entries) => {
@@ -408,6 +431,88 @@ function setupInfiniteScroll() {
     { root, rootMargin: "400px" },
   );
   obs.observe(el("resultsMore"));
+}
+
+/* ---------- mobile bottom sheet ----------
+   The rail (filters + results) becomes a draggable sheet over a persistent
+   full-screen map. Two snap states — collapsed (peek: just the count) and
+   expanded (filters + list) — plus free-drag with snap-to-nearest. Tapping a
+   list card collapses the sheet so the map is visible; the map is therefore
+   always one drag/tap away rather than a long scroll. */
+const sheet = {
+  expanded: false,
+  el: null,
+  setExpanded(v) {
+    this.expanded = v;
+    this.el.style.transform = ""; // hand control back to the CSS class
+    this.el.classList.toggle("sheet--expanded", v);
+    el("sheetHandle").setAttribute("aria-expanded", String(v));
+  },
+  expand() { if (isMobile()) this.setExpanded(true); },
+  collapse() { if (isMobile()) this.setExpanded(false); },
+};
+
+function setupBottomSheet() {
+  const rail = document.querySelector(".rail");
+  sheet.el = rail;
+  const handle = el("sheetHandle");
+  const bar = document.querySelector(".resultsbar");
+  const grabZones = [handle, bar];
+
+  const peekPx = () =>
+    parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sheet-peek")) || 132;
+  const collapsedY = () => rail.getBoundingClientRect().height - peekPx();
+
+  let dragging = false, startY = 0, startT = 0, moved = false;
+
+  const onDown = (e) => {
+    if (!isMobile()) return;
+    // let the Reset-center button (and any future buttons) work as buttons
+    if (e.target.closest(".btn") && !e.target.closest(".sheet-handle")) return;
+    dragging = true; moved = false;
+    startY = e.clientY;
+    startT = sheet.expanded ? 0 : collapsedY();
+    rail.classList.add("sheet--dragging");
+    handle.setPointerCapture?.(e.pointerId);
+  };
+  const onMove = (e) => {
+    if (!dragging) return;
+    const dy = e.clientY - startY;
+    if (Math.abs(dy) > 4) moved = true;
+    const y = Math.min(Math.max(startT + dy, 0), collapsedY());
+    rail.style.transform = `translateY(${y}px)`;
+    e.preventDefault();
+  };
+  const onUp = (e) => {
+    if (!dragging) return;
+    dragging = false;
+    rail.classList.remove("sheet--dragging");
+    handle.releasePointerCapture?.(e.pointerId);
+    if (!moved) {
+      sheet.setExpanded(!sheet.expanded); // tap toggles
+      return;
+    }
+    const y = startT + (e.clientY - startY);
+    sheet.setExpanded(y < collapsedY() * 0.5); // snap to nearer state
+  };
+
+  for (const z of grabZones) {
+    z.addEventListener("pointerdown", onDown);
+    z.addEventListener("pointermove", onMove);
+    z.addEventListener("pointerup", onUp);
+    z.addEventListener("pointercancel", onUp);
+  }
+
+  // leaving mobile (e.g. rotate to a wide landscape / resize): clear any inline
+  // transform and sheet state so the desktop layout isn't left shifted
+  mqMobile.addEventListener("change", (e) => {
+    if (!e.matches) {
+      rail.style.transform = "";
+      rail.classList.remove("sheet--expanded", "sheet--dragging");
+      sheet.expanded = false;
+    }
+    if (map) setTimeout(() => map.invalidateSize(), 60);
+  });
 }
 
 function updateCount(n) {
@@ -448,6 +553,9 @@ function setActive(id, { fromMap = false, fromList = false } = {}) {
 
   const m = markerById.get(id);
   if (m && fromList) {
+    // on mobile the map is a full-screen layer behind the sheet — collapse the
+    // sheet so the pin/popup are visible instead of silently updating a hidden map
+    if (isMobile()) sheet.collapse();
     // zoom to marker through any cluster, then open popup
     cluster.zoomToShowLayer(m, () => m.openPopup());
   }
@@ -542,6 +650,7 @@ async function boot() {
     initMap();
     wireControls();
     setupInfiniteScroll();
+    setupBottomSheet();
     recompute({ fit: true });
     clearVeil();
     window.__edjoin = { state, setActive, map }; // debug handle

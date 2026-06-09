@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Edjoin Radius — California school jobs, mapped</title>
     <meta
       name="description"
@@ -62,6 +62,10 @@
 
       <!-- Left rail: search, filters, results -->
       <aside class="rail" aria-label="search and results">
+        <!-- mobile bottom-sheet grab handle (hidden on desktop) -->
+        <button type="button" class="sheet-handle" id="sheetHandle" aria-label="Expand or collapse the job list" aria-expanded="false">
+          <span class="sheet-handle__grip" aria-hidden="true"></span>
+        </button>
         <form class="controls" id="controls" autocomplete="off">
           <div class="field field--locate">
             <label for="locInput">Center on a place</label>

@@ -137,6 +137,9 @@ input, select { font-family: inherit; }
   min-height: 0;
 }
 
+/* drag handle is only used by the mobile bottom sheet */
+.sheet-handle { display: none; }
+
 .controls {
   padding: 18px 18px 16px;
   display: flex;
@@ -307,6 +310,8 @@ input[type="range"]::-moz-range-thumb {
   transition: border-color .16s ease, background .16s ease, transform .08s ease;
 }
 .jobcard:hover { border-color: var(--ink-600); background: var(--ink-700); }
+/* press feedback for touch, where :hover never fires */
+.jobcard:active { background: var(--ink-600); }
 .jobcard.is-active {
   border-color: var(--poppy);
   background: linear-gradient(180deg, rgba(236,106,30,.10), var(--ink-800));
@@ -462,15 +467,123 @@ input[type="range"]::-moz-range-thumb {
 @media (max-width: 920px) {
   :root { --rail-w: 340px; }
 }
-@media (max-width: 720px) {
+
+/* Phones (portrait) and short landscape devices.
+   The desktop three-pane layout has no room on a phone — the controls eat the
+   rail and the results list collapses to a few px. Instead we switch to a
+   MAP + BOTTOM SHEET model (Airbnb/Zillow/Google-Maps style):
+     • the map is a persistent full-screen layer behind everything
+     • the rail becomes a draggable sheet that collapses to a peek (count only)
+       or expands to show filters + the scrollable list
+   Drag the handle / count bar to move it; tap to toggle. The list scrolls
+   inside the sheet, so the map is always one collapse away — no long scroll
+   back to it. (Driven by setupBottomSheet() in app.js.) */
+@media (max-width: 720px), (orientation: landscape) and (max-height: 480px) {
+  :root { --sheet-h: 86dvh; --sheet-peek: 132px; }
+
   .app {
-    grid-template-columns: 1fr;
-    grid-template-rows: var(--head-h) 44vh 1fr;
-    grid-template-areas: "head" "map" "rail";
+    display: block;
+    height: 100dvh;
+    overflow: hidden;
   }
-  .rail { border-right: none; border-top: 1px solid var(--line); }
+
+  /* compact, fixed masthead so the map+sheet own the rest of the screen */
+  .masthead {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--head-h); z-index: 40;
+  }
+  .brand__sub { display: none; }
   .masthead__stats { gap: 16px; }
   .stat:last-child { display: none; }
+
+  /* map: persistent full-screen layer under the sheet */
+  .mapwrap {
+    position: fixed;
+    top: var(--head-h); left: 0; right: 0; bottom: 0;
+    height: auto; z-index: 1;
+  }
+  .legend { display: none; }   /* the sheet covers the bottom — legend would collide */
+
+  /* the rail becomes the bottom sheet */
+  .rail {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: var(--sheet-h);
+    z-index: 20;
+    border: none;
+    border-top: 1px solid var(--line);
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 -14px 34px -16px rgba(0, 0, 0, 0.7);
+    background: var(--ink-850);
+    /* collapsed (peek) by default; the controller toggles .sheet--expanded */
+    transform: translateY(calc(var(--sheet-h) - var(--sheet-peek)));
+    transition: transform .34s cubic-bezier(.32, .72, 0, 1);
+    will-change: transform;
+  }
+  .rail.sheet--expanded { transform: translateY(0); }
+  .rail.sheet--dragging { transition: none; }
+
+  /* grab affordance */
+  .sheet-handle {
+    display: grid; place-items: center;
+    order: 0; flex-shrink: 0;
+    width: 100%; height: 28px;
+    border: none; background: transparent;
+    cursor: grab; touch-action: none;
+  }
+  .sheet-handle:active { cursor: grabbing; }
+  .sheet-handle__grip {
+    width: 40px; height: 4px; border-radius: 4px; background: var(--ink-600);
+    transition: background .16s ease;
+  }
+  .sheet-handle:hover .sheet-handle__grip { background: var(--paper-fade); }
+
+  /* peek shows the result count first; filters + list sit below */
+  .resultsbar     { order: 1; flex-shrink: 0; touch-action: none; }
+  .controls       { order: 2; flex-shrink: 0; }
+  .results__scroll{
+    order: 3; flex: 1; min-height: 0; overflow-y: auto;
+    touch-action: pan-y;
+    overscroll-behavior: contain;   /* don't chain scroll to the map / pull-to-refresh */
+  }
+  .unmapped       { order: 4; }
+
+  .jobcard { scroll-margin-top: 8px; }
+
+  /* --- touch ergonomics (skill: touch-target-size, readable-font-size, tap-delay) --- */
+  /* 16px inputs stop iOS from auto-zooming on focus; 44px min tap height */
+  input[type="text"],
+  .select select {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .btn--go { min-width: 44px; min-height: 44px; }
+  .btn--ghost { min-height: 38px; }
+  input[type="range"] { height: 22px; }            /* easier to grab the slider */
+  .sheet-handle { height: 36px; }                  /* bigger grab area than the 4px grip */
+  /* extend the small "Edjoin ↗" link's hit area without shifting layout */
+  .jobcard__link { padding: 8px 6px; margin: -8px -6px; }
+  /* kill the 300ms tap delay / double-tap zoom on controls (sheet drag zones
+     keep their own touch-action set above) */
+  .btn, .jobcard, .jobcard__link, .select select, input[type="range"] {
+    touch-action: manipulation;
+  }
+
+  /* --- safe areas (skill: safe-area-awareness) — notch / home indicator --- */
+  .masthead {
+    height: calc(var(--head-h) + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-left: calc(22px + env(safe-area-inset-left, 0px));
+    padding-right: calc(22px + env(safe-area-inset-right, 0px));
+  }
+  .mapwrap { top: calc(var(--head-h) + env(safe-area-inset-top, 0px)); }
+  /* keep the bottom of the list clear of the home indicator */
+  .unmapped__list,
+  .results { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+
+  /* keep the required map attribution visible just above the collapsed peek
+     instead of buried behind the sheet */
+  .leaflet-bottom { bottom: calc(var(--sheet-peek) + 6px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
