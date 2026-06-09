@@ -140,11 +140,17 @@ input, select { font-family: inherit; }
 /* drag handle is only used by the mobile bottom sheet */
 .sheet-handle { display: none; }
 
+/* controls split into a map group (location + radius) and a refine group
+   (keyword + type + sort). On desktop they stack seamlessly to read as one
+   panel; on mobile the map group sits in the sheet peek (see media query). */
 .controls {
-  padding: 18px 18px 16px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+.controls--map { padding: 18px 18px 0; }
+.controls--refine {
+  padding: 15px 18px 16px;
   border-bottom: 1px solid var(--line-soft);
 }
 
@@ -218,13 +224,22 @@ input[type="text"]:focus,
 }
 
 /* range slider */
+/* The visible track is drawn by the track pseudo-element (thin, 4px), while the
+   input's own height is just the pointer hit area — so we can grow the touch
+   target on mobile without thickening the bar. */
 input[type="range"] {
-  -webkit-appearance: none; appearance: none; width: 100%; height: 4px;
-  background: var(--ink-700); border-radius: 4px; outline: none; margin: 6px 0;
+  -webkit-appearance: none; appearance: none; width: 100%; height: 20px;
+  background: transparent; outline: none; margin: 4px 0; cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px; background: var(--ink-700); border-radius: 4px;
+}
+input[type="range"]::-moz-range-track {
+  height: 4px; background: var(--ink-700); border-radius: 4px;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; appearance: none;
-  width: 18px; height: 18px; border-radius: 50%;
+  width: 18px; height: 18px; border-radius: 50%; margin-top: -7px; /* center on the 4px track */
   background: var(--poppy); border: 3px solid var(--ink-850);
   box-shadow: 0 0 0 1px var(--poppy); cursor: pointer; transition: transform .12s ease;
 }
@@ -479,7 +494,9 @@ input[type="range"]::-moz-range-thumb {
    inside the sheet, so the map is always one collapse away — no long scroll
    back to it. (Driven by setupBottomSheet() in app.js.) */
 @media (max-width: 720px), (orientation: landscape) and (max-height: 480px) {
-  :root { --sheet-h: 86dvh; --sheet-peek: 132px; }
+  /* --sheet-peek is refined at runtime to the exact height of handle + map
+     controls + count (see sizePeek() in app.js); this is just a sane default. */
+  :root { --sheet-h: 86dvh; --sheet-peek: 210px; }
 
   .app {
     display: block;
@@ -502,7 +519,13 @@ input[type="range"]::-moz-range-thumb {
     top: var(--head-h); left: 0; right: 0; bottom: 0;
     height: auto; z-index: 1;
   }
-  .legend { display: none; }   /* the sheet covers the bottom — legend would collide */
+  /* the sheet covers the map's bottom-left, so move the key to the top-right
+     (clear of the zoom controls at top-left) instead of hiding it */
+  .legend {
+    left: auto; right: 10px;
+    bottom: auto; top: 10px;
+    gap: 11px; padding: 6px 11px; font-size: 10px;
+  }
 
   /* the rail becomes the bottom sheet */
   .rail {
@@ -538,15 +561,22 @@ input[type="range"]::-moz-range-thumb {
   }
   .sheet-handle:hover .sheet-handle__grip { background: var(--paper-fade); }
 
-  /* peek shows the result count first; filters + list sit below */
-  .resultsbar     { order: 1; flex-shrink: 0; touch-action: none; }
-  .controls       { order: 2; flex-shrink: 0; }
-  .results__scroll{
-    order: 3; flex: 1; min-height: 0; overflow-y: auto;
+  /* PEEK (always visible over the map): location + radius + count, so the map
+     controls are adjustable with the map in view. Expanding reveals the
+     refine controls (keyword/type/sort) and the list. */
+  .controls--map   { order: 1; flex-shrink: 0; padding-top: 6px; }
+  .resultsbar      { order: 2; flex-shrink: 0; touch-action: none; }
+  .controls--refine{ order: 3; flex-shrink: 0; }
+  .results__scroll {
+    order: 4; flex: 1; min-height: 0; overflow-y: auto;
     touch-action: pan-y;
     overscroll-behavior: contain;   /* don't chain scroll to the map / pull-to-refresh */
   }
-  .unmapped       { order: 4; }
+  .unmapped        { order: 5; }
+
+  /* compact the location field for the peek — the reposition behaviour is now
+     obvious (tap the map when collapsed), so the hint just costs height */
+  .field--locate .hint { display: none; }
 
   .jobcard { scroll-margin-top: 8px; }
 
@@ -559,7 +589,7 @@ input[type="range"]::-moz-range-thumb {
   }
   .btn--go { min-width: 44px; min-height: 44px; }
   .btn--ghost { min-height: 38px; }
-  input[type="range"] { height: 22px; }            /* easier to grab the slider */
+  input[type="range"] { height: 30px; }            /* bigger grab area; track stays thin */
   .sheet-handle { height: 36px; }                  /* bigger grab area than the 4px grip */
   /* extend the small "Edjoin ↗" link's hit area without shifting layout */
   .jobcard__link { padding: 8px 6px; margin: -8px -6px; }

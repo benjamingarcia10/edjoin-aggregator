@@ -457,10 +457,21 @@ function setupBottomSheet() {
   sheet.el = rail;
   const handle = el("sheetHandle");
   const bar = document.querySelector(".resultsbar");
+  const mapControls = document.querySelector(".controls--map");
   const grabZones = [handle, bar];
 
+  // size the collapsed peek to exactly reveal handle + map controls + count,
+  // so the location/radius controls sit just above the count over the live map
+  const sizePeek = () => {
+    if (!isMobile()) return;
+    const h = handle.offsetHeight + mapControls.offsetHeight + bar.offsetHeight;
+    document.documentElement.style.setProperty("--sheet-peek", `${Math.round(h)}px`);
+  };
+  sizePeek();
+  requestAnimationFrame(sizePeek); // re-measure once fonts/layout settle
+
   const peekPx = () =>
-    parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sheet-peek")) || 132;
+    parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sheet-peek")) || 210;
   const collapsedY = () => rail.getBoundingClientRect().height - peekPx();
 
   let dragging = false, startY = 0, startT = 0, moved = false;
@@ -510,8 +521,17 @@ function setupBottomSheet() {
       rail.style.transform = "";
       rail.classList.remove("sheet--expanded", "sheet--dragging");
       sheet.expanded = false;
+    } else {
+      sizePeek();
     }
     if (map) setTimeout(() => map.invalidateSize(), 60);
+  });
+
+  // the peek height tracks the controls' height; re-measure on resize/rotate
+  let peekTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(peekTimer);
+    peekTimer = setTimeout(sizePeek, 200);
   });
 }
 

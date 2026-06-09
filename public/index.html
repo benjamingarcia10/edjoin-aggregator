@@ -66,7 +66,9 @@
         <button type="button" class="sheet-handle" id="sheetHandle" aria-label="Expand or collapse the job list" aria-expanded="false">
           <span class="sheet-handle__grip" aria-hidden="true"></span>
         </button>
-        <form class="controls" id="controls" autocomplete="off">
+        <!-- spatial controls (location + radius) — these drive the MAP, so on
+             mobile they sit in the always-visible sheet peek above the map -->
+        <form class="controls controls--map" id="controls" autocomplete="off">
           <div class="field field--locate">
             <label for="locInput">Center on a place</label>
             <div class="field__row">
@@ -92,7 +94,10 @@
             </div>
             <input id="radius" name="radius" type="range" min="1" max="100" step="1" value="25" />
           </div>
+        </form>
 
+        <!-- list-refinement controls — revealed when the sheet is expanded -->
+        <div class="controls controls--refine">
           <div class="field">
             <label for="kw">Keyword</label>
             <input id="kw" name="kw" type="text" placeholder="title or district — “counselor”, “SPED”…" />
@@ -113,8 +118,7 @@
               </select></div>
             </div>
           </div>
-
-        </form>
+        </div>
 
         <div class="resultsbar">
           <p class="resultsbar__count" id="resultCount" aria-live="polite">Locating jobs…</p>
