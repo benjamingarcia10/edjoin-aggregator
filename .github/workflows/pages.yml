@@ -27,7 +27,14 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Deploy the CURRENT tip of main, not the run's pinned github.sha. This
+      # matters when refresh.yml calls us right after pushing fresh data: a
+      # workflow_call job inherits the caller run's SHA (the pre-refresh commit),
+      # so a default checkout would publish stale data. `ref: main` fetches the
+      # branch tip — i.e. the data the refresh job just committed.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Assemble site
         run: |
