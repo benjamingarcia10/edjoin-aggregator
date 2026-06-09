@@ -4,7 +4,7 @@
    map, and keeps a distance-sorted result list in sync.
    ============================================================ */
 
-const DATA_URL = "/data/jobs.geo.json";
+const DATA_URL = "data/jobs.geo.json"; // relative so it works at a GitHub Pages subpath too
 const DEFAULT_CENTER = { lat: 37.3382, lon: -121.8863, label: "San Jose, CA" };
 const PAGE = 120; // cards rendered per batch; more load on scroll (no hard cap)
 
