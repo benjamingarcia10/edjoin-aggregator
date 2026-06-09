@@ -174,8 +174,3 @@ listings. The scrapers identify themselves and rate-limit (Nominatim ≤1 req/se
 bounded, delayed concurrency against Edjoin) — please keep those limits if you
 fork it, and don't hammer the endpoints. The published dataset is a point-in-time
 snapshot of public postings; treat Edjoin as the system of record.
-
-## Spec
-
-Design rationale and the full API reconnaissance are in
-[`docs/superpowers/specs/2026-06-08-edjoin-radius-map-design.md`](docs/superpowers/specs/2026-06-08-edjoin-radius-map-design.md).
