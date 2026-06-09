@@ -1,0 +1,120 @@
+name: Refresh data + deploy
+
+# Re-scrapes Edjoin, and if the data actually changed, commits it and redeploys
+# the site by CALLING pages.yml (the single source of truth for "how we deploy").
+# Incremental: the committed caches mean only NEW postings/addresses are fetched,
+# so a run is usually a few minutes.
+
+on:
+  workflow_dispatch: # manual "Run workflow" button
+    inputs:
+      force:
+        description: "Commit & deploy even if nothing changed (for testing)"
+        type: boolean
+        default: false
+  schedule:
+    # ───────────────────────────────────────────────────────────────────────
+    # TUNE HOW OFTEN IT RUNS — edit this one line (cron is in UTC):
+    - cron: "0 13 * * *" # daily at 13:00 UTC
+    #
+    #   every 6 hours :  "0 */6 * * *"
+    #   twice a day   :  "0 1,13 * * *"
+    #   daily         :  "0 13 * * *"
+    #   weekly (Mon)  :  "0 13 * * 1"
+    # ───────────────────────────────────────────────────────────────────────
+
+# Don't let two refreshes overlap; let an in-flight one finish.
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  # ── Job 1: scrape, and commit+push only if the data meaningfully changed ──
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45 # safety cap; a normal incremental run is far shorter
+    permissions:
+      contents: write # only this job writes to the repo (commit + push)
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # No dependencies to install — the scripts use only Node built-ins.
+      - name: Refresh data (scrape → geocode, all incremental)
+        env:
+          CONCURRENCY: "8" # gentle against Edjoin from shared CI IPs
+        run: npm run build-exact
+
+      # Don't let a transient Edjoin/CI failure publish a truncated or empty
+      # dataset. Abort (no commit, no deploy) if the count is implausibly low or
+      # dropped sharply vs. the committed data.
+      - name: Sanity-check scrape
+        run: |
+          new=$(grep -m1 -oE '"count":[0-9]+' data/jobs.json | grep -oE '[0-9]+')
+          old=$(git show HEAD:data/jobs.json 2>/dev/null | grep -m1 -oE '"count":[0-9]+' | grep -oE '[0-9]+' || echo 0)
+          echo "scraped ${new:-0} postings (previously committed: ${old:-0})"
+          if [ "${new:-0}" -lt 1000 ]; then
+            echo "::error::Only ${new:-0} postings scraped — looks like a scrape failure. Aborting."
+            exit 1
+          fi
+          if [ "${old:-0}" -gt 0 ] && [ "$new" -lt $((old / 2)) ]; then
+            echo "::error::Posting count dropped >50% ($old → $new) — refusing to publish. Aborting."
+            exit 1
+          fi
+
+      - name: Detect meaningful changes (ignore builtAt/scrapedAt timestamps)
+        id: check
+        env:
+          FORCE: ${{ inputs.force }} # "true" only on a forced manual run; empty on schedule
+        run: |
+          git add -A data/
+          # Count added/removed CONTENT lines, then drop:
+          #   - the +++/--- file headers
+          #   - the per-run builtAt/scrapedAt timestamp lines, anchored to the
+          #     line start so a record that merely contains that text isn't lost
+          # `|| true` keeps the step alive under `bash -eo pipefail` when a grep
+          # legitimately matches nothing (exit 1).
+          real=$(git diff --cached --unified=0 -- data/ \
+            | grep -E '^[-+]' \
+            | grep -vE '^(\+\+\+|---)' \
+            | grep -vE '^[-+]"(builtAt|scrapedAt)":' \
+            | grep -c . || true)
+          real=${real:-0}
+          echo "Real (non-timestamp) changed lines: $real"
+          if [ "$FORCE" = "true" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Force requested — committing & deploying regardless of changes."
+          elif [ "$real" -gt 0 ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No data changes — skipping commit and deploy."
+          fi
+
+      - name: Commit & push refreshed data
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh Edjoin data ($(date -u +%Y-%m-%d))" -- data/
+          # Survive a human push landing between checkout and now: rebase our
+          # data commit onto the latest main, then push explicitly to main.
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+  # ── Job 2: only when data changed, deploy by reusing pages.yml verbatim ──
+  # GITHUB_TOKEN pushes don't trigger pages.yml's `on: push`, so we invoke it
+  # directly. The deploy tokens (pages/id-token) are granted here, to this job only.
+  deploy:
+    needs: refresh
+    if: needs.refresh.outputs.changed == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml

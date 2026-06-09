@@ -1,12 +1,14 @@
 name: Deploy to GitHub Pages
 
-# Publishes the static site (public/ + the runtime data file) on every push to main.
-# The app is pure static files — no build step — so we just assemble and upload.
+# Publishes the static site (public/ + the runtime data file). Runs on every push
+# to main, on manual dispatch, and when called by refresh.yml (workflow_call) after
+# it commits fresh data. The app is pure static files — no build step.
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+  workflow_call: {} # let refresh.yml reuse this exact deploy as a job
 
 permissions:
   contents: read
@@ -30,7 +32,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site/data
-          cp public/index.html public/app.js public/styles.css _site/
+          cp -r public/. _site/            # copy all of public/ so new assets aren't dropped
           cp data/jobs.geo.json _site/data/
           # let GitHub Pages serve .json without Jekyll processing
           touch _site/.nojekyll
