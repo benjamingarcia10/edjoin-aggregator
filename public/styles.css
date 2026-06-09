@@ -398,14 +398,21 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 0 0 3px rgba(236,106,30,.5), 0 3px 9px -2px rgba(0,0,0,.5);
 }
 .pin-center::after {
-  /* soft pulsing halo so the center is unmistakable */
+  /* soft pulsing halo so the center is unmistakable. Animate ONLY transform +
+     opacity (compositor-driven) — animating width/height repaints every frame and
+     made mobile Chrome flash/recycle the layer as it faded. will-change keeps it
+     on its own GPU layer so it isn't de-promoted mid-fade. */
   content: ""; position: absolute; left: 50%; top: 50%;
-  width: 22px; height: 22px; border-radius: 50%; transform: translate(-50%, -50%);
-  border: 2px solid var(--poppy); animation: pulse 2.4s ease-out infinite;
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--poppy);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: .55;
+  will-change: transform, opacity;
+  animation: pulse 2.4s ease-out infinite;
 }
 @keyframes pulse {
-  0% { width: 22px; height: 22px; opacity: .55; }
-  100% { width: 64px; height: 64px; opacity: 0; }
+  0% { transform: translate(-50%, -50%) scale(1); opacity: .55; }
+  100% { transform: translate(-50%, -50%) scale(2.9); opacity: 0; } /* 22px × 2.9 ≈ 64px */
 }
 .pin-job {
   display: block; box-sizing: border-box;

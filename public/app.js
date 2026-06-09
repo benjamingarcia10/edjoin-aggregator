@@ -316,8 +316,25 @@ function recompute({ fit = false } = {}) {
   updateCount(matches.length);
 
   if (fit) {
-    map.setView([c.lat, c.lon], zoomForRadius(state.radius));
+    centerMap([c.lat, c.lon], zoomForRadius(state.radius));
   }
+}
+
+// Recenter the map on a point. On mobile the bottom sheet covers the lower part
+// of the map, so the geometric center sits under it (cutting off the marker/ring).
+// Shift the view up by half the covered height so the point lands in the middle
+// of the VISIBLE map. On desktop the rail is a side panel, so no offset is needed.
+function bottomInsetPx() {
+  if (!isMobile()) return 0;
+  const raw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sheet-peek")) || 210;
+  // clamp so a tall sheet on a short (landscape) screen can't pan the point off-screen
+  const mapH = map.getContainer().offsetHeight || 0;
+  return mapH ? Math.min(raw, mapH * 0.4) : raw;
+}
+function centerMap(latlng, zoom) {
+  map.setView(latlng, zoom, { animate: false });
+  const inset = bottomInsetPx();
+  if (inset) map.panBy([0, Math.round(inset / 2)], { animate: false });
 }
 
 function sortMatches(arr, sort) {
