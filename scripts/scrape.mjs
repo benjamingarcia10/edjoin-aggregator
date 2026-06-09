@@ -126,7 +126,10 @@ async function main() {
     if (batch.length === 0) break;
   }
 
-  const jobs = [...byId.values()];
+  // Sort by postingID so the on-disk order is stable run-to-run (the API doesn't
+  // break postingDate ties deterministically). The app re-sorts client-side, so
+  // this only affects the file — making git diffs show real changes, not reshuffles.
+  const jobs = [...byId.values()].sort((a, b) => a.id - b.id);
   await mkdir(dirname(OUT), { recursive: true });
   await writeFile(OUT, arrayDoc({ scrapedAt: new Date().toISOString(), count: jobs.length }, "jobs", jobs));
   console.log(`\n✓ wrote ${jobs.length} unique jobs -> ${OUT}`);

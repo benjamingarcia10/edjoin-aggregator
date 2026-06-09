@@ -14,8 +14,12 @@ export function arrayDoc(meta, arrayKey, arr) {
 }
 
 // { one compact "key": value entry per line }
+// Keys are emitted in a stable, numeric-aware order so the file is deterministic
+// run-to-run (e.g. ID keys "9" < "10"; city/address keys alphabetical) — diffs
+// then reflect only real adds/removes/changes, not insertion-order churn.
 export function mapDoc(obj) {
   const entries = Object.entries(obj)
+    .sort((a, b) => String(a[0]).localeCompare(String(b[0]), "en", { numeric: true }))
     .map(([k, v]) => `${JSON.stringify(k)}:${JSON.stringify(v)}`)
     .join(",\n");
   return `{\n${entries}\n}\n`;

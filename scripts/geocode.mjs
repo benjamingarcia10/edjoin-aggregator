@@ -91,6 +91,7 @@ async function main() {
     if (c) placed++;
     return { ...j, geo: c ? { lat: c.lat, lon: c.lon, precision: "city" } : null };
   });
+  geoJobs.sort((a, b) => a.id - b.id); // stable on-disk order for clean diffs
 
   await writeFile(
     OUT,

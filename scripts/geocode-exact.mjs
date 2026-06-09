@@ -265,6 +265,7 @@ async function main() {
   });
 
   const placed = counts.address + counts.zip + counts.city + counts.county;
+  geoJobs.sort((a, b) => a.id - b.id); // stable on-disk order for clean diffs
   await writeFile(
     OUT,
     arrayDoc(
