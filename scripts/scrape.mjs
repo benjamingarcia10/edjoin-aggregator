@@ -30,13 +30,14 @@ function netDateToISO(s) {
   return new Date(Number(m[1])).toISOString();
 }
 
-function buildUrl(page) {
+let reqSeq = 0;
+function buildUrl(page, order) {
   const p = new URLSearchParams({
     rows: String(ROWS),
     page: String(page),
     sort: "postingDate",
     sortVal: "0",
-    order: "desc",
+    order,
     keywords: "",
     location: "",
     searchType: "all",
@@ -51,13 +52,13 @@ function buildUrl(page) {
     regionID: "0",
     districtID: "0",
     searchID: "0",
-    _: String(page), // cache-buster
+    _: `${Date.now()}-${reqSeq++}`, // unique per request so each pass reads fresh (no cached page)
   });
   return `${BASE}?${p.toString()}`;
 }
 
-async function fetchPage(page, attempt = 1) {
-  const url = buildUrl(page);
+async function fetchPage(page, order, attempt = 1) {
+  const url = buildUrl(page, order);
   try {
     const res = await fetch(url, {
       headers: {
@@ -76,7 +77,7 @@ async function fetchPage(page, attempt = 1) {
       const wait = 1000 * attempt;
       console.warn(`  page ${page} failed (${err.message}); retry ${attempt} in ${wait}ms`);
       await sleep(wait);
-      return fetchPage(page, attempt + 1);
+      return fetchPage(page, order, attempt + 1);
     }
     throw err;
   }
@@ -104,35 +105,60 @@ function normalize(r) {
   };
 }
 
-async function main() {
-  console.log("Edjoin scraper — fetching all California job postings\n");
-
-  const first = await fetchPage(1);
-  const totalRecords = first.totalRecords ?? 0;
-  const totalPages = first.totalPages ?? 1; // pages at rows=1000
-  const pagesNeeded = Math.ceil(totalRecords / ROWS);
-  console.log(`totalRecords=${totalRecords}  -> ${pagesNeeded} page(s) at rows=${ROWS}\n`);
-
-  const byId = new Map();
+// One full paginated pass in a given sort order, merged into `byId`.
+// Returns { pages, total, added } where `total` is the server's reported
+// totalRecords and `added` is how many postings were new to the union.
+async function onePass(byId, order) {
+  const first = await fetchPage(1, order);
+  const total = first.totalRecords ?? 0;
+  const pagesNeeded = Math.ceil(total / ROWS);
+  const before = byId.size;
   for (const r of first.data || []) byId.set(r.postingID, normalize(r));
-  console.log(`page 1: ${first.data?.length || 0} records (total ${byId.size})`);
-
   for (let page = 2; page <= pagesNeeded; page++) {
-    await sleep(700); // be polite
-    const data = await fetchPage(page);
-    const batch = data.data || [];
+    await sleep(400); // be polite
+    const batch = (await fetchPage(page, order)).data || [];
     for (const r of batch) byId.set(r.postingID, normalize(r));
-    console.log(`page ${page}: ${batch.length} records (total ${byId.size})`);
     if (batch.length === 0) break;
   }
+  return { pages: pagesNeeded, total, added: byId.size - before };
+}
+
+// The API paginates by offset over a list that mutates during the ~15s scrape,
+// so any single pass skips ~a dozen postings at a shifting page boundary. Rather
+// than guess a fixed number of passes, we LOOP until a full pass discovers nothing
+// new (the real completeness signal), alternating sort order each pass so the page
+// boundaries land on different postings and skips don't correlate. Capped so a
+// constantly-churning list can't loop forever.
+const MAX_PASSES = 6;
+async function main() {
+  console.log("Edjoin scraper — paging until the set converges\n");
+  const byId = new Map();
+  const orders = ["desc", "asc"];
+  let maxTotal = 0;
+
+  for (let pass = 1; pass <= MAX_PASSES; pass++) {
+    const order = orders[(pass - 1) % orders.length];
+    const { pages, total, added } = await onePass(byId, order);
+    maxTotal = Math.max(maxTotal, total);
+    console.log(`pass ${pass} (${order}, ${pages}p): +${added} new → union ${byId.size} (server total ${total})`);
+    if (added === 0 && pass >= 2) {
+      console.log(`✓ converged after ${pass} passes — a full pass found nothing new`);
+      break;
+    }
+    if (pass === MAX_PASSES) console.warn(`! hit MAX_PASSES (${MAX_PASSES}); union may still be missing a few`);
+    await sleep(600);
+  }
+
+  const jobs = [...byId.values()].sort((a, b) => a.id - b.id);
+  const gap = maxTotal - jobs.length;
+  console.log(`\nunion ${jobs.length} vs peak server total ${maxTotal} (Δ ${gap})`);
 
   // Sort by postingID so the on-disk order is stable run-to-run (the API doesn't
   // break postingDate ties deterministically). The app re-sorts client-side, so
   // this only affects the file — making git diffs show real changes, not reshuffles.
-  const jobs = [...byId.values()].sort((a, b) => a.id - b.id);
   await mkdir(dirname(OUT), { recursive: true });
   await writeFile(OUT, arrayDoc({ scrapedAt: new Date().toISOString(), count: jobs.length }, "jobs", jobs));
-  console.log(`\n✓ wrote ${jobs.length} unique jobs -> ${OUT}`);
+  console.log(`✓ wrote ${jobs.length} unique jobs -> ${OUT}`);
 }
 
 main().catch((e) => {
