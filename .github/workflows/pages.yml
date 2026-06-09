@@ -32,7 +32,7 @@ jobs:
       # workflow_call job inherits the caller run's SHA (the pre-refresh commit),
       # so a default checkout would publish stale data. `ref: main` fetches the
       # branch tip — i.e. the data the refresh job just committed.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
 
@@ -44,9 +44,9 @@ jobs:
           # let GitHub Pages serve .json without Jekyll processing
           touch _site/.nojekyll
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
