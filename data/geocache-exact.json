@@ -1603,6 +1603,7 @@
 "county:San Diego":{"lat":32.9637838,"lon":-116.7706277,"precision":"county"},
 "county:San Joaquin":{"lat":37.9372901,"lon":-121.2773719,"precision":"county"},
 "county:San Mateo":{"lat":37.496904,"lon":-122.3330573,"precision":"county"},
+"county:Santa Barbara":{"lat":34.7136533,"lon":-119.985823,"precision":"county"},
 "county:Santa Clara":{"lat":37.2333253,"lon":-121.6846349,"precision":"county"},
 "county:Shasta":{"lat":40.7965121,"lon":-121.9979194,"precision":"county"},
 "county:Stanislaus":{"lat":37.5500871,"lon":-121.0501425,"precision":"county"},
