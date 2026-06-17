@@ -503,6 +503,7 @@
 "940 c street|novato|94949":{"lat":38.056766633534,"lon":-122.526005112904,"precision":"address"},
 "940 creston road|paso robles|93446":{"lat":35.624421531161,"lon":-120.668029248555,"precision":"address"},
 "940 filbert street|san francisco|94133":{"lat":37.800734879514,"lon":-122.414960972969,"precision":"address"},
+"940 south coast drive|costa mesa|92626":{"lat":33.689968460793,"lon":-117.896400039639,"precision":"address"},
 "950 west d st.|ontario|91762":{"lat":34.067031470462,"lon":-117.666265193488,"precision":"address"},
 "951 palisade street|hayward|94542":{"lat":37.662401669863,"lon":-122.074293290438,"precision":"address"},
 "955 inspiration place|redding|96003":null,
