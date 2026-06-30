@@ -1683,6 +1683,7 @@
 "county:San Benito":{"lat":36.6231225,"lon":-121.1157794,"precision":"county"},
 "county:San Bernardino":{"lat":34.8253019,"lon":-116.0833144,"precision":"county"},
 "county:San Diego":{"lat":32.9637838,"lon":-116.7706277,"precision":"county"},
+"county:San Francisco":{"lat":37.7866963,"lon":-122.4948298,"precision":"county"},
 "county:San Joaquin":{"lat":37.9372901,"lon":-121.2773719,"precision":"county"},
 "county:San Mateo":{"lat":37.496904,"lon":-122.3330573,"precision":"county"},
 "county:Santa Barbara":{"lat":34.7136533,"lon":-119.985823,"precision":"county"},
