@@ -717,6 +717,7 @@
 "1441 montiel road|escondido|92026":{"lat":33.129588238466,"lon":-117.111496760238,"precision":"address"},
 "1441 s. mooney blvd|visalia|93277":{"lat":36.318219855783,"lon":-119.31397410493,"precision":"address"},
 "1445 23rd avenue, oakland, ca 94606|oakland|94606":null,
+"1450 e. la palma ave.|anaheim|92805":{"lat":33.84720985182,"lon":-117.89910802698,"precision":"address"},
 "1450 herndon ave.|clovis|93611":{"lat":36.837408716868,"lon":-119.689781918785,"precision":"address"},
 "1450 marina way s,|richmond|94804":{"lat":37.914513286948,"lon":-122.355854652835,"precision":"address"},
 "1450 marina way s.|richmond|94804":{"lat":37.914513286948,"lon":-122.355854652835,"precision":"address"},
