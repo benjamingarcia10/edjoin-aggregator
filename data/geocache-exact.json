@@ -1209,6 +1209,7 @@
 "5652 w. gettysburg|fresno|93722":null,
 "5670 camden avenue|san jose|95124":{"lat":37.234753261678,"lon":-121.903394851672,"precision":"address"},
 "5700 13th avenue|sacramento|95820":{"lat":38.54031448172,"lon":-121.44118300923,"precision":"address"},
+"5703 oberlin dr. suite 202|san diego|92121":{"lat":32.892329088314,"lon":-117.195471463002,"precision":"address"},
 "5715 musick ave.|newark|94560":{"lat":37.542371685021,"lon":-122.031599471747,"precision":"address"},
 "5715 utah trail|twentynine palms|92277":{"lat":34.152011084271,"lon":-116.036486584974,"precision":"address"},
 "5735 47th avenue|sacramento|95824":{"lat":38.510530217454,"lon":-121.43904592126,"precision":"address"},
