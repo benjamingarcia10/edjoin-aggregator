@@ -340,6 +340,7 @@
 "511 so. buena vista st.|burbank|91505":{"lat":34.155580996131,"lon":-118.326907620148,"precision":"address"},
 "513 s. broadway st.|ellsworth|56129":{"lat":43.516124193461,"lon":-96.01829771177,"precision":"address"},
 "515 e poplar ave|san mateo|94401":{"lat":37.574893499927,"lon":-122.329990572597,"precision":"address"},
+"515 lotzgesell rd|sequim|98382":null,
 "515 oak st.|maxwell|95955":null,
 "516 shasta ave.|grenada|96038":{"lat":41.645545641412,"lon":-122.524750915578,"precision":"address"},
 "519 e. badillo st.|covina|91723":{"lat":34.086175415404,"lon":-117.881072664628,"precision":"address"},
@@ -1989,5 +1990,6 @@
 "zip:96101":{"lat":41.485135,"lon":-120.5656027,"precision":"zip"},
 "zip:96113":{"lat":40.1511724,"lon":-120.1661714,"precision":"zip"},
 "zip:96134":{"lat":41.9361048,"lon":-121.467733,"precision":"zip"},
-"zip:96137":{"lat":40.2608449,"lon":-121.0800213,"precision":"zip"}
+"zip:96137":{"lat":40.2608449,"lon":-121.0800213,"precision":"zip"},
+"zip:98382":{"lat":48.0658741,"lon":-123.0193513,"precision":"zip"}
 }
