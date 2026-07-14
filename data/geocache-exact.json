@@ -967,6 +967,7 @@
 "2695 e dominguez st.|carson|90895":{"lat":33.839251461913,"lon":-118.218869069776,"precision":"address"},
 "2695 s. valentine ave.|fresno|93706":{"lat":36.694947018011,"lon":-119.853490444139,"precision":"address"},
 "2700 barstow rd|barstow|92311":null,
+"2700 west coast highway suite 270|newport|92663":{"lat":33.619779544173,"lon":-117.922912810487,"precision":"address"},
 "2701 amber trail|pollock pines|95726":{"lat":38.747161379486,"lon":-120.580300980254,"precision":"address"},
 "2701 cabrillo college dr.|aptos|95062":null,
 "2705 w. orange ave.|anaheim|92804":{"lat":33.824936739607,"lon":-117.980237783788,"precision":"address"},
