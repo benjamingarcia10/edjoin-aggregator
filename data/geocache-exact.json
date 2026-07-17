@@ -950,6 +950,7 @@
 "2501 w. burbank blvd., suite 301|burbank|91505":null,
 "2502 merced st., ste 101, fresno, ca 93721|fresno|93721":{"lat":36.740550324103,"lon":-119.788166828528,"precision":"address"},
 "2503 lawrence street|ceres|95307":{"lat":37.590199260924,"lon":-120.949611292103,"precision":"address"},
+"2505 west shaw ave #101|fresno|95060":{"lat":36.808173664055,"lon":-119.840881854697,"precision":"address"},
 "2506 foothill blvd.|la crescenta|91214":{"lat":34.219972411027,"lon":-118.23321246086,"precision":"address"},
 "2508 howard avenue|lakeport|95453":{"lat":39.062350907866,"lon":-122.91850224935,"precision":"address"},
 "2510 live oak blvd|yuba city|95991":{"lat":39.163698970378,"lon":-121.623300899957,"precision":"address"},
