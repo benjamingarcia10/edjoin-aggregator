@@ -139,6 +139,7 @@
 "190 east liberty street|reno|89501":{"lat":39.522494494209,"lon":-119.808808130497,"precision":"address"},
 "198 culbertson|smyrna|37167":null,
 "198 w. mill street|san bernardino|92408":{"lat":34.092205381158,"lon":-117.287347285891,"precision":"address"},
+"200 e. north avenue, rm 110|baltimore|21202":{"lat":39.311294654515,"lon":-76.613749147415,"precision":"address"},
 "200 east mary street|lansing|66043":{"lat":39.245047714899,"lon":-94.896237983897,"precision":"address"},
 "200 foothill blvd.|la canada|91011":{"lat":34.196355233439,"lon":-118.18274963341,"precision":"address"},
 "200 kalmus dr.|costa mesa|92628":{"lat":33.672452370527,"lon":-117.881180460347,"precision":"address"},
