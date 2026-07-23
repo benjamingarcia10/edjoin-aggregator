@@ -128,6 +128,7 @@
 "170 liberty school rd.|petaluma|94952":{"lat":38.27914232767,"lon":-122.70571439201,"precision":"address"},
 "170 liberty school rd|petaluma|94952":{"lat":38.27914232767,"lon":-122.70571439201,"precision":"address"},
 "170 w. san jose ave|claremont|91711":{"lat":34.083100790614,"lon":-117.716565062292,"precision":"address"},
+"171 12th street|oakland|94607":{"lat":37.800290005208,"lon":-122.265457316708,"precision":"address"},
 "175 fairview lane|sonora|95370":{"lat":37.979102927486,"lon":-120.391568390841,"precision":"address"},
 "175 golden gate avenue|san francisco|94102":{"lat":37.781861232239,"lon":-122.413414155903,"precision":"address"},
 "176 holston drive|lancaster|93535":null,
@@ -453,6 +454,7 @@
 "720 santa barbara st.|santa barbara|93101":{"lat":34.421055747376,"lon":-119.696010250051,"precision":"address"},
 "721 cliff drive|santa barbara|93105":{"lat":34.408535543022,"lon":-119.698807723504,"precision":"address"},
 "721 utica|huntington beach|92651":{"lat":33.675856467554,"lon":-117.990375795935,"precision":"address"},
+"722-055 highway 395 north|litchfield|96117":null,
 "725 bloomfield rd.|sebastopol|95472":{"lat":38.37016618924,"lon":-122.806758036836,"precision":"address"},
 "725 ne dean drive|grants pass|97526":{"lat":42.442986458626,"lon":-123.320020502222,"precision":"address"},
 "730 45th st|san diego|92102":{"lat":32.713159693205,"lon":-117.097914232026,"precision":"address"},
@@ -2059,6 +2061,7 @@
 "zip:96097":{"lat":41.718851,"lon":-122.640052,"precision":"zip"},
 "zip:96101":{"lat":41.485135,"lon":-120.5656027,"precision":"zip"},
 "zip:96113":{"lat":40.1511724,"lon":-120.1661714,"precision":"zip"},
+"zip:96117":{"lat":40.512538,"lon":-120.326769,"precision":"zip"},
 "zip:96134":{"lat":41.9361048,"lon":-121.467733,"precision":"zip"},
 "zip:96137":{"lat":40.2608449,"lon":-121.0800213,"precision":"zip"},
 "zip:98382":{"lat":48.0658741,"lon":-123.0193513,"precision":"zip"}
