@@ -700,6 +700,7 @@
 "1313 \\|fresno|93721":null,
 "1313 p street #205|fresno|93721":{"lat":36.741387268716,"lon":-119.787500156229,"precision":"address"},
 "1315 palm canyon drive|borrego springs|92004":{"lat":33.25679716479,"lon":-116.347600357009,"precision":"address"},
+"1320 chapman avenue|garden grove|98240":{"lat":33.788394865867,"lon":-118.033054275592,"precision":"address"},
 "1327 e. el monte ave.|dinuba|93618":{"lat":36.545635262347,"lon":-119.381013754684,"precision":"address"},
 "1330 s. knott ave.|anaheim|92804":{"lat":33.813870867087,"lon":-118.010677106767,"precision":"address"},
 "1331 e. calaveras blvd.|milpitas|95035":{"lat":37.436015662838,"lon":-121.882639363762,"precision":"address"},
