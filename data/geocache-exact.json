@@ -920,6 +920,7 @@
 "2240 old river rd.|ukiah|95482":{"lat":39.130291585892,"lon":-123.165955112744,"precision":"address"},
 "2241 harvard st|sacramento|95815":{"lat":38.607207906792,"lon":-121.434937865841,"precision":"address"},
 "2241 harvard street, suite 310|sacramento|95815":{"lat":38.607207906792,"lon":-121.434937865841,"precision":"address"},
+"2241 harvard street|sacramento|95815":{"lat":38.607207906792,"lon":-121.434937865841,"precision":"address"},
 "2243 sycamore canyon rd.|santa barbara|93108":{"lat":34.441346105536,"lon":-119.662324461334,"precision":"address"},
 "2250 mesquite drrive|santa rosa|95405":{"lat":38.429047360456,"lon":-122.673793647922,"precision":"address"},
 "2250 rockefeller drive|ceres|95307":{"lat":37.596408308133,"lon":-120.970261409856,"precision":"address"},
