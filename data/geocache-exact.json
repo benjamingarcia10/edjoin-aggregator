@@ -93,6 +93,7 @@
 "118 west bullion street|hailey|83333":{"lat":43.518765069332,"lon":-114.31741960252,"precision":"address"},
 "120 hemme avenue|alamo|94507":{"lat":37.841241762202,"lon":-122.026019198186,"precision":"address"},
 "120 king street|larkspur|94939":{"lat":37.934410937203,"lon":-122.536665939475,"precision":"address"},
+"122 e. tehachapi blvd. suite c|tehachapi|93561":{"lat":35.131990343128,"lon":-118.447136617967,"precision":"address"},
 "123 e fremont ave|sunnyvale|94087":{"lat":37.352104358977,"lon":-122.032129745323,"precision":"address"},
 "123 edgemont drive|daly city|94015":{"lat":37.681903055784,"lon":-122.484206004146,"precision":"address"},
 "123 main st|portland|":null,
