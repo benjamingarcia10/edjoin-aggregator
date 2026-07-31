@@ -1186,6 +1186,7 @@
 "4470 redwood hwy|san rafael|94903":{"lat":38.019114455391,"lon":-122.535499997482,"precision":"address"},
 "4490 cornishon ave.|la cañada|91011":{"lat":34.205739136662,"lon":-118.203605183321,"precision":"address"},
 "4502 casey rd.|brawley|92227":{"lat":32.982166401855,"lon":-115.423430582821,"precision":"address"},
+"4524 crown avenue|la canada|91011":null,
 "4525 union ave.|san jose|95124":null,
 "4535 missouri flat rd, ste 1a|placerville|95667":{"lat":38.699238067424,"lon":-120.822780409587,"precision":"address"},
 "4575 alpine road|portola valley|94028":{"lat":37.348947907301,"lon":-122.207709367956,"precision":"address"},
