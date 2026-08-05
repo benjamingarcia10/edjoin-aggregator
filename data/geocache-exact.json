@@ -497,6 +497,7 @@
 "800-830 fresno street|fresno|93704":{"lat":36.727607459119,"lon":-119.803821933409,"precision":"address"},
 "801 silver avenue|san francisco|94134":{"lat":37.729113713514,"lon":-122.419425247497,"precision":"address"},
 "805 humboldt ave.|chowchilla|93610":{"lat":37.11639360401,"lon":-120.262637852688,"precision":"address"},
+"805 w la veta suite 205|orange|92868":{"lat":33.780670448587,"lon":-117.860807342702,"precision":"address"},
 "819 west iowa ave.|sunnyvale|94086":{"lat":37.374274547059,"lon":-122.040283582592,"precision":"address"},
 "820 sixth st.|taft|93268":{"lat":35.14698669285,"lon":-119.457690181176,"precision":"address"},
 "823 w laurel street|willows|95988":{"lat":39.517909195254,"lon":-122.203333628163,"precision":"address"},
