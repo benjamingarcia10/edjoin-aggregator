@@ -1230,6 +1230,7 @@
 "5020 franklin drive|pleasanton|94588":{"lat":37.693877749394,"lon":-121.909382094481,"precision":"address"},
 "5049 robert j. matthews parkway|el dorado hills|95762":{"lat":38.622672981903,"lon":-121.058143657861,"precision":"address"},
 "5050 barranca parkway|irvine|92604":{"lat":33.676119865266,"lon":-117.792749494207,"precision":"address"},
+"5050 el carro ln.|carpinteria|93013":{"lat":34.404555380213,"lon":-119.514013047669,"precision":"address"},
 "5055 santa teresa blvd|gilroy|95020":{"lat":36.966600648516,"lon":-121.561899094113,"precision":"address"},
 "5075 s. bradley rd., suite 119|santa maria|93455":{"lat":34.864083779448,"lon":-120.418930223298,"precision":"address"},
 "5082 old highway north|mariposa|95338":{"lat":37.490220658262,"lon":-119.965758564816,"precision":"address"},
