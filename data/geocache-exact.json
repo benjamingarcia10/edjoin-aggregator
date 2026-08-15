@@ -636,6 +636,7 @@
 "1102 q street, suite 4800|sacramento|95811":{"lat":38.5721341146,"lon":-121.495412527712,"precision":"address"},
 "1105 s. madera ave.|madera|93637":null,
 "1108 bissell ave.|richmond|94801":{"lat":37.93401974258,"lon":-122.35888948131,"precision":"address"},
+"1111 broadway blvd|oakland|94607":{"lat":37.802425198104,"lon":-122.272528792132,"precision":"address"},
 "1111 howe ave|sacramento|95825":{"lat":38.58553620618,"lon":-121.415392058886,"precision":"address"},
 "1111 las gallinas ave.|san rafael|94913":{"lat":38.013298695822,"lon":-122.549491172389,"precision":"address"},
 "1111 las gallinas avenue|statewide|94913":null,
