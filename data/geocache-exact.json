@@ -922,6 +922,7 @@
 "2060 challenger drive|alameda|94501":null,
 "2065 e. bowles ave.|fresno|93725":{"lat":36.601641615285,"lon":-119.753786061606,"precision":"address"},
 "2070 veneto street|delano|93215":{"lat":35.783839607175,"lon":-119.214123439444,"precision":"address"},
+"2088 north beale road|yuba city|95901":{"lat":39.127897519228,"lon":-121.54175720559,"precision":"address"},
 "2100 greenfield dr.|el cajon|92019":{"lat":32.800863252144,"lon":-116.904686661512,"precision":"address"},
 "2100 j street|eureka|95501":{"lat":40.788586118333,"lon":-124.1589818907,"precision":"address"},
 "2100 seventh street|wasco|93280":{"lat":35.594359056086,"lon":-119.349341805293,"precision":"address"},
