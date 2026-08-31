@@ -1666,6 +1666,7 @@
 "20872 broadway|sonoma|95476":{"lat":38.26989990016,"lon":-122.461175894482,"precision":"address"},
 "20900 mcclelland rd, bldg 2|cupertino|95014":null,
 "20932 big canyon rd.|middletown|95461":{"lat":38.756908590881,"lon":-122.6149268847,"precision":"address"},
+"21250 stevens creek blvd.|cupertino|95014":{"lat":37.322721771418,"lon":-122.050915546133,"precision":"address"},
 "21380 centre pointe parkway|santa clarita|91350":{"lat":34.410849539271,"lon":-118.510795807983,"precision":"address"},
 "21425 cohasset street|canoga park \\u0026 downtown los angeles|91303":null,
 "21644 avenue 196|strathmore|93267":{"lat":36.145546584234,"lon":-119.088697742751,"precision":"address"},
