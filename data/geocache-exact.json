@@ -1377,6 +1377,7 @@
 "6940 calloway dr.|bakersfield|93312":{"lat":35.423388691784,"lon":-119.109905099684,"precision":"address"},
 "6990 65th st|sacramento|95823":null,
 "7000 n. center st.|winton|95388":null,
+"7080 commerce dr.|pleasanton|94588":{"lat":37.69698360166,"lon":-121.919626682973,"precision":"address"},
 "7085 brockton avenue|riverside|92506":{"lat":33.944485742261,"lon":-117.395744622606,"precision":"address"},
 "7165 burton avenue|rohnert park|94928":{"lat":38.338900180313,"lon":-122.69957116321,"precision":"address"},
 "7201 clayton ave.|turlock|95380":{"lat":37.481832630875,"lon":-120.931360447788,"precision":"address"},
