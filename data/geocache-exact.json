@@ -1680,6 +1680,7 @@
 "22434 nisqually rd|apple valley|92308":{"lat":34.486238179722,"lon":-117.173424543901,"precision":"address"},
 "22450 sherman way|west hills|91307":{"lat":34.200941300727,"lon":-118.615344496585,"precision":"address"},
 "22540 parrotts ferry rd.|columbia|95310":{"lat":38.037362588758,"lon":-120.403047894332,"precision":"address"},
+"22540 parrotts ferry road|columbia|95310":{"lat":38.037362588758,"lon":-120.403047894332,"precision":"address"},
 "22580 kingston lane|grass valley|95949":{"lat":39.051210403514,"lon":-121.066244347635,"precision":"address"},
 "22630 antelope blvd.|red bluff|96080":{"lat":40.185789673529,"lon":-122.193784134421,"precision":"address"},
 "22661 old alturas way|bella vista|96008":{"lat":40.637305300633,"lon":-122.235992749516,"precision":"address"},
