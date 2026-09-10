@@ -49,6 +49,7 @@
 "70 normandy court|danville|94506":{"lat":37.802720452934,"lon":-121.935667312103,"precision":"address"},
 "70 oak grove st|san francisco|94107":{"lat":37.777071386907,"lon":-122.401703262416,"precision":"address"},
 "77 santa barbara rd.|pleasant hill|94523":null,
+"80 juan bautista cir|san francisco|94132":{"lat":37.718446805239,"lon":-122.478743688362,"precision":"address"},
 "82 second street|yuba city|95991":{"lat":39.115232314544,"lon":-121.605964925616,"precision":"address"},
 "84 east j st.|chula vista|91910":{"lat":32.631924951395,"lon":-117.058541597486,"precision":"address"},
 "87-225 church st.|thermal|92274":null,
