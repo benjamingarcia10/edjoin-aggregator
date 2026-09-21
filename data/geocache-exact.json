@@ -728,6 +728,7 @@
 "1301 north a street|lompoc|93438":{"lat":34.658640186024,"lon":-120.449029787903,"precision":"address"},
 "1304 west roseburg ave.||95350":{"lat":37.660350153196,"lon":-121.012491539415,"precision":"address"},
 "1305 e. vine st.|lodi|95240":{"lat":38.123387845619,"lon":-121.24996144394,"precision":"address"},
+"1305 ironsides ave|bremerton|98301":{"lat":47.572132200049,"lon":-122.611809801917,"precision":"address"},
 "1309 s. mary avenue,|sunnyvale|94087":{"lat":37.349468319169,"lon":-122.050618591945,"precision":"address"},
 "1310 stroud avenue|kingsburg|93631":{"lat":36.525095115244,"lon":-119.55336998761,"precision":"address"},
 "1313 \\|fresno|93721":null,
