@@ -374,6 +374,7 @@
 "515 e poplar ave|san mateo|94401":{"lat":37.574893499927,"lon":-122.329990572597,"precision":"address"},
 "515 lotzgesell rd|sequim|98382":null,
 "515 oak st.|maxwell|95955":null,
+"515 w main st|barrington|60010":{"lat":42.154169260963,"lon":-88.145429968624,"precision":"address"},
 "516 shasta ave.|grenada|96038":{"lat":41.645545641412,"lon":-122.524750915578,"precision":"address"},
 "519 e. badillo st.|covina|91723":{"lat":34.086175415404,"lon":-117.881072664628,"precision":"address"},
 "520 e. carmel street|san marcos|92078":{"lat":33.138858648818,"lon":-117.153080852309,"precision":"address"},
