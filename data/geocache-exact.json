@@ -1886,6 +1886,7 @@
 "county:Tulare":{"lat":36.2516475,"lon":-118.852583,"precision":"county"},
 "county:Ventura":{"lat":34.4458248,"lon":-119.0779359,"precision":"county"},
 "county:Wayne":{"lat":33.6742048,"lon":-117.8680243,"precision":"county"},
+"county:Yolo":{"lat":38.7184542,"lon":-121.9059001,"precision":"county"},
 "gilroy prep school|gilroy|95020":null,
 "highway 1|san luis obispo|93401":null,
 "highway 32 and canal st.|hamilton city|95951":{"lat":39.744588867086,"lon":-122.019070598126,"precision":"address"},
