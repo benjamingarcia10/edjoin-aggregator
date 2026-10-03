@@ -33,6 +33,7 @@
 "22 osprey way|durango|81301":null,
 "24 centerpointe drive|la palma|90623":{"lat":33.861561052936,"lon":-118.031654838387,"precision":"address"},
 "25 churchill ave.|palo alto|94306":{"lat":37.432810210186,"lon":-122.154423685468,"precision":"address"},
+"25 hillcroft way|walnut creek|94597":{"lat":37.900240599609,"lon":-122.080007335113,"precision":"address"},
 "26 wildwood way|san rafael|94901":{"lat":37.983654339319,"lon":-122.533605012451,"precision":"address"},
 "40 s. market st.|san jose|95113":{"lat":37.334664982731,"lon":-121.891377994078,"precision":"address"},
 "43 hawkside dr.|markleeville|96120":{"lat":38.7677452109,"lon":-119.809616555599,"precision":"address"},
