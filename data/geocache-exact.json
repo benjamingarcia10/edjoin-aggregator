@@ -1245,6 +1245,7 @@
 "4414 hwys. 78 and 79|santa ysabel|92070":null,
 "4427 lebec rd.|lebec|93243":{"lat":34.874935037945,"lon":-118.889552481229,"precision":"address"},
 "4436 engle road|sacramento|95821":{"lat":38.632014952327,"lon":-121.360516264795,"precision":"address"},
+"4456 black ave, suite 250||94566":{"lat":37.672140949935,"lon":-121.875835965046,"precision":"address"},
 "4460 s el monte ave|los altos|94022":null,
 "4465 ninth st.|guadalupe|93434":{"lat":34.968956546956,"lon":-120.56932293645,"precision":"address"},
 "4470 redwood hwy|san rafael|94903":{"lat":38.019114455391,"lon":-122.535499997482,"precision":"address"},
