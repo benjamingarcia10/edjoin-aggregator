@@ -318,6 +318,7 @@
 "435 sixth street|woodland|95695":{"lat":38.676773735728,"lon":-121.767063906737,"precision":"address"},
 "436-965 susan drive|doyle-portola-susanville|96109":{"lat":40.047052309221,"lon":-120.123827118872,"precision":"address"},
 "440 st. katherine dr.|la canada flintridge|91011":null,
+"441 la moree road|san marcos|92078":{"lat":33.133420937506,"lon":-117.152697267141,"precision":"address"},
 "444 hegenberger road|oakland|94621":{"lat":37.737217210515,"lon":-122.196669107925,"precision":"address"},
 "444 n. american street|stockton|95202":{"lat":37.958300143933,"lon":-121.284414662848,"precision":"address"},
 "444 w. 23rd st.|merced|95340":{"lat":37.307059110163,"lon":-120.479100682981,"precision":"address"},
