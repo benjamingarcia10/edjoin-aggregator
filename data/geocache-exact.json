@@ -1770,6 +1770,7 @@
 "26452 rd. 164|visalia|93292":null,
 "26675 n. sacramento blvd.|thornton|95686":{"lat":38.22900123236,"lon":-121.423860437076,"precision":"address"},
 "26675 plainfield st.|esparto|95627":{"lat":38.691060241156,"lon":-122.015806397196,"precision":"address"},
+"26941 cabot rd, ste 109|laguna hills|92653":{"lat":33.571591148961,"lon":-117.6745383993,"precision":"address"},
 "27000 weyerhaeuser way|santa clarita|91351":{"lat":34.408112628177,"lon":-118.468012722864,"precision":"address"},
 "27102 foxborough|aliso viejo|92656":{"lat":33.569643668315,"lon":-117.71828826935,"precision":"address"},
 "27232 via industria|temecula|92590":{"lat":33.509234653256,"lon":-117.183801131638,"precision":"address"},
