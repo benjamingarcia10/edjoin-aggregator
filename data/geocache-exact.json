@@ -1633,6 +1633,7 @@
 "15260 nisqualli road|victorville|92395":{"lat":34.485220894582,"lon":-117.330320431577,"precision":"address"},
 "15305 rockwood road|escondido|92027":{"lat":33.111363768789,"lon":-117.008730737239,"precision":"address"},
 "15350 riverview rd.|helendale|92342":{"lat":34.740394310268,"lon":-117.329020173023,"precision":"address"},
+"15430 oregon rd.|hornbrook|96044":{"lat":41.909704530323,"lon":-122.562789644465,"precision":"address"},
 "15505 civic dr.|victorville|92392":null,
 "15505 civic drive|victorville|92392":null,
 "15510 usher street|san lorenzo|94580":{"lat":37.688749337487,"lon":-122.128676935194,"precision":"address"},
