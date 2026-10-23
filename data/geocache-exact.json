@@ -1755,6 +1755,7 @@
 "23802 avenida de la carlota|laguna hills|92653":{"lat":33.616262054609,"lon":-117.711170160784,"precision":"address"},
 "23875 river rd.|corning|96021":{"lat":39.975127706848,"lon":-122.14302990983,"precision":"address"},
 "23958 avenue 324|lemon cove|93244":null,
+"24077 st. hwy 49|nevada city|95959":{"lat":39.318758720982,"lon":-121.104865268526,"precision":"address"},
 "24285 lincoln st.|chualar|93925":null,
 "24335 soboba road|san jacinto|":{"lat":33.770622921928,"lon":-116.90921459572,"precision":"address"},
 "24411 amador st.|hayward|94544":{"lat":37.656911756806,"lon":-122.093565440906,"precision":"address"},
