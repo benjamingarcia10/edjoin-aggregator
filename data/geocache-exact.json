@@ -312,6 +312,7 @@
 "411 sycamore ave.|mill valley|94941":{"lat":37.896630163154,"lon":-122.529599543738,"precision":"address"},
 "415 broadway, academy hall|redwood city|94063":null,
 "417 29th street|oakland|94609":{"lat":37.817738628324,"lon":-122.265166865249,"precision":"address"},
+"423 s. broadway|yreka|96097":{"lat":41.729233491479,"lon":-122.637170926143,"precision":"address"},
 "425 plumas blvd, suite 200|yuba city|95991":{"lat":39.13045578215,"lon":-121.614240096869,"precision":"address"},
 "426 locust st.|modesto|95351":{"lat":37.639737833518,"lon":-121.012282741961,"precision":"address"},
 "426 n. blackstone|tulare|93274":{"lat":36.213987072357,"lon":-119.330833365147,"precision":"address"},
