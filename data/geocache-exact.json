@@ -1274,6 +1274,7 @@
 "4524 crown avenue|la canada|91011":null,
 "4525 union ave.|san jose|95124":null,
 "4535 missouri flat rd, ste 1a|placerville|95667":{"lat":38.699238067424,"lon":-120.822780409587,"precision":"address"},
+"4552 oxbow drive|sacramento|95864":{"lat":38.608010285368,"lon":-121.359125039211,"precision":"address"},
 "4575 alpine road|portola valley|94028":{"lat":37.348947907301,"lon":-122.207709367956,"precision":"address"},
 "4585 badger road|santa rosa|95409":{"lat":38.482220597345,"lon":-122.673826818899,"precision":"address"},
 "4600 blackrock drive|sacramento|95835":{"lat":38.656276926535,"lon":-121.495036376637,"precision":"address"},
