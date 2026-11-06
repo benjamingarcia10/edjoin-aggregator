@@ -1435,6 +1435,7 @@
 "6921 mt. murphy road|coloma|95633":{"lat":38.80252924239,"lon":-120.888712197988,"precision":"address"},
 "6940 calloway dr.|bakersfield|93312":{"lat":35.423388691784,"lon":-119.109905099684,"precision":"address"},
 "6990 65th st|sacramento|95823":null,
+"6991 balboa ave.|san diego|92111":{"lat":32.820638863597,"lon":-117.166484163853,"precision":"address"},
 "7000 n. center st.|winton|95388":null,
 "7080 commerce dr.|pleasanton|94588":{"lat":37.69698360166,"lon":-121.919626682973,"precision":"address"},
 "7085 brockton avenue|riverside|92506":{"lat":33.944485742261,"lon":-117.395744622606,"precision":"address"},
