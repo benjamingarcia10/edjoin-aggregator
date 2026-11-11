@@ -1070,6 +1070,7 @@
 "2611 temple heights drive|inland empire|92056":{"lat":33.215659849873,"lon":-117.269484952635,"precision":"address"},
 "2615 sierra meadows dr.|rocklin|95677":{"lat":38.793596377805,"lon":-121.222528240228,"precision":"address"},
 "2636 latham dr.|sacramento|95864":{"lat":38.570297988054,"lon":-121.400594924417,"precision":"address"},
+"2641 webster street|berkeley|94705":{"lat":37.856054447694,"lon":-122.253733690101,"precision":"address"},
 "2645 dolan way|san pablo|94806":null,
 "2665 acacia avenue|sutter|95982":null,
 "2680 mabry drive|sacramento|95835":{"lat":38.67652072056,"lon":-121.525401448144,"precision":"address"},
