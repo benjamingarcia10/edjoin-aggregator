@@ -427,6 +427,7 @@
 "600 e. main street|stockton|95202":{"lat":37.953760266305,"lon":-121.283181219129,"precision":"address"},
 "600 elko st.|gonzales|93926":null,
 "600 n. cherry st.|tulare|93274":null,
+"600 s. bascom ave.|san jose|95128":{"lat":37.316120514618,"lon":-121.931763945221,"precision":"address"},
 "600 s. lafayette park pl suite 302|los angeles|90057":{"lat":34.06278446312,"lon":-118.282266487104,"precision":"address"},
 "600 sixth street|lincoln|95648":{"lat":38.893183174165,"lon":-121.291624936369,"precision":"address"},
 "600 temple ave.|camarillo|93010":null,
